@@ -1,0 +1,11 @@
+;; Number -> Number
+;; produce the area of the square given one side
+(check-expect (area 3) 9)
+(check-expect (area 7) 49)
+
+; (define (area n) 0)
+; (define (area n)
+;    (... n))
+
+(define (area n)
+    (* n n))
