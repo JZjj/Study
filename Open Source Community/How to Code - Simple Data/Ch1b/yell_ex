@@ -1,0 +1,12 @@
+;;String -> String
+;;add "!" to the end of s
+
+(check-expect (yell "hi") "hi!")
+(check-expect (yell "goodbye") "goodbye!")
+
+;(define (yell s) "")      ;stub
+;(define (yell s)          ;template
+;   (... s))
+
+(define (yell s)
+  (string-append s "!"))
