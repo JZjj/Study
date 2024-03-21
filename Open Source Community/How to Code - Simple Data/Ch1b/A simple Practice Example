@@ -1,0 +1,12 @@
+;;String -> String
+;;Produce the given string with s added to the end.
+
+(check-expect (pluralize "dog") "dogs")
+(check-expect (pluralize "grass") "grasss")
+
+;(define (pluralize str) "")     ;stub
+;(define (pluralize str)         ;template
+;  (... str))
+
+(define (pluralize str)
+  (string-append str "s"))
