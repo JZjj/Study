@@ -1,0 +1,52 @@
+A pandas series is a one-dimensional labelled array
+= A list and a dictionary
+value with identifier, identifier does not have to be unique
+single colleciton of data (like col in excel)
+
+pd.Series()    #tab to see all command
+series object created in order
+
+method
+.mean()
+.sum()
+
+Series attributes, not method
+.size
+.is_unique
+.values
+.index
+
+import series with pd.read_csv
+squeeze converts a dataframe to a series
+usecols parameter accepts a list of the column to import
+
+pd.read_csv(' ', usecols = []).squeeze('columns')
+
+len()
+list()
+dict()
+sorted()
+max()
+min()
+
+checking existence
+'car' in 'racecar'
+
+series.index
+series.values
+
+extracting series value by index position
+pd.iloc[] access a value in the data structure
+
+.iloc[0] index position 0
+.iloc[[1,2,3,5]] get multiple 
+
+extract by index label
+.loc['']
+
+.get() when index is not sure going to exist
+.get('','a') 'a' fallback value if not found
+
+.copy() do not change original
+
+broadcasting: process of applying an arithmetic operation to an array.
