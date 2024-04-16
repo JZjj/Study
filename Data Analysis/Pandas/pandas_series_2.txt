@@ -1,0 +1,6 @@
+broadcasting
+.add(10) equal to (series) + 10
+.sub() equal to -
+
+.mul() 
+.value_counts(ascending = True, normalize = True (relative percentage)) count number of times each value occurs
