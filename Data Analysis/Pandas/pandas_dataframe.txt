@@ -32,6 +32,9 @@ also work for time, format = '%H:%M %p'
 dt.time
 read_csv(parse_dates = True)
 
+multiple
+.isin(collection object, series, list, tuple), return True for a row is value is found
+
 Filter based on condition
 pd.to_datetime(df[], format = '%H:$M %p).dt.time
 dt.timme()
