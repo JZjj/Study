@@ -25,3 +25,13 @@ astype('category') rather than object reduce memory usage
 .sort_index()
 .rank() assigns a numeric ranking to sech series value
 #nba['Salary Rank'] = nba['Salary'].rank(ascending = False).astype(int)
+
+pd.to_datetime(pd.Series, format = ''/%m%d%Y/) 
+also work for time, format = '%H:%M %p'
+
+dt.time
+read_csv(parse_dates = True)
+
+Filter based on condition
+pd.to_datetime(df[], format = '%H:$M %p).dt.time
+dt.timme()
