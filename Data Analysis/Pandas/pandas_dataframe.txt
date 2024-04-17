@@ -44,3 +44,9 @@ isnull and notnull methods
 .notnull()
 .between()
 .duplicated(keep = 'first'/'last'/False)
+
+
+.set_index()
+
+iloc[] requires numeric position for rows and columns
+loc[] requires labels for rows and columns
