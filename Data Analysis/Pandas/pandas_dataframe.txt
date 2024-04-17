@@ -38,3 +38,9 @@ multiple
 Filter based on condition
 pd.to_datetime(df[], format = '%H:$M %p).dt.time
 dt.timme()
+
+isnull and notnull methods
+.isnull()
+.notnull()
+.between()
+.duplicated(keep = 'first'/'last'/False)
