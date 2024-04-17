@@ -9,7 +9,19 @@ selecting multiple columns
 .value_counts(normalize = )
 
 drop rows with missing values
-
 .dropna(how = 'any') default
 .dropna(how = 'all')
 .dropna(subset = [''])
+
+fill missing values
+.fillna()
+
+.astype('int'/int) same
+astype('category') rather than object reduce memory usage
+.nunique()
+.sort_values(by = '', ascending = ,na_position = 'last'/'first')
+.sort_values(['',''], ascending = ['', ''])
+
+.sort_index()
+.rank() assigns a numeric ranking to sech series value
+#nba['Salary Rank'] = nba['Salary'].rank(ascending = False).astype(int)
