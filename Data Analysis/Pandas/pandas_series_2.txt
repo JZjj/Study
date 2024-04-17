@@ -4,3 +4,9 @@ broadcasting
 
 .mul() 
 .value_counts(ascending = True, normalize = True (relative percentage)) count number of times each value occurs
+
+.apply(function)
+etc apply(len) give each length
+
+map() connects each Series to another value. Can pass a dictionary or a series. connects keys to value
+value type
