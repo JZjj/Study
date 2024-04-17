@@ -1,0 +1,29 @@
+fixed size container, single data type, array element can be modified
+
+key properties: ndim, shape, size, dtype
+
+np.array([]) put a list into
+np.array(range(5))
+.shape
+.size
+.ndim
+.dtype
+
+As converting lists, we can create arrays using functions
+np.ones((rows,cols), dtype) float by default
+np.zeros((rows,cols), dtype) 
+np.arange(start, stop, step) equivalent to range, intergers, start, stop, step, only stop is required, and is not inclusive
+np.linspace(start, stop, n) array of floats with start&stop with n elements, seperated by a consistent
+step size and stop is inclusive
+np.reshape()
+np.identity() nxn square matrix
+
+random number arrays
+np.default_rng(seed)
+rng.random(n) returns n random number from a uniform distribution between 0 and 1
+rng.normal(mean, std, n) returns n random number from a normal distribution
+
+#from numpy.random import default_rng
+rng = default_rng(seed)
+random_array = rng.random(10) #10 random number in an array
+random_normal = rng.normal(mean, std, size = 10)
