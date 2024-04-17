@@ -1,1 +1,9 @@
-notes here.
+Only square matrices have inverse
+
+rectangular matrices can have an inverse (left/right).
+
+Invertible:
+1) det A not equal to 0
+full rank
+n pivot position
+non singular
