@@ -1,0 +1,9 @@
+data = pd.read_csv()
+data.to_csv('name.csv', columns = ['',''what cols to include]) write into the same directionary by default
+
+for excel
+pd.read_excel('', sheet_name = ''/[]) if 2 sheets, dictionary
+
+data = pd.read_excel('', sheet_name = [1,2])
+data['Data 1']
+data['Data 2']
