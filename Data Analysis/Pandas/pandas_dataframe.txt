@@ -1,0 +1,15 @@
+2 dimensional table
+info() return a summary
+
+sum() add by tranversing the index; axis = 1/'index'/'column' to across columns
+
+selecting multiple columns
+
+.insert(loc:numeric index position)
+.value_counts(normalize = )
+
+drop rows with missing values
+
+.dropna(how = 'any') default
+.dropna(how = 'all')
+.dropna(subset = [''])
