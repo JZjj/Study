@@ -43,6 +43,8 @@ pd.iloc[] access a value in the data structure
 
 extract by index label
 .loc['']
+also can use loc to filter
+.loc[condition]
 
 .get() when index is not sure going to exist
 .get('','a') 'a' fallback value if not found
