@@ -28,6 +28,38 @@ with open("", "w") as file:
   for letter in string.ascii_lowercase:
       file.write(letter + '\n')
 
+a = [1, 2, 3]
+for index, item in enumerate(a):
+  print("Item %s has index %s" % (item, index))
+
 for i,j in zip(a,b):
 
 print('%s %s'%(a, b))
+
+import time
+while True:
+  print("Hello")
+  time.sleep(2)
+
+def vocab(word):
+  try:
+    return d[word]
+  except KeyError:
+    return "That word does not exist."
+
+str.lower()
+str.count("a")
+
+data = pandas.read_csv("..")
+data_2 = data*2
+data_2.to_csv('', index = None)
+pandas.concat([data, data_2])
+
+from datetime import datetime
+print(datetime.now().strftime(""))
+datetime.datetime.now().year
+
+import random
+random.sample()
+
+content = [i.st
