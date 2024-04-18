@@ -57,3 +57,16 @@ loc can also do the same thing
 
 rename
 data.rename(columns = {'original':'new', ...}, index = {})
+
+dataframe.drop(columns = [], index = [])
+dataframe.pop(single column)
+del bond['Year'] 
+
+data.sample() get a random row
+data.sample(n = 5, axis = 'rows'/'columns')
+
+bond.sort_values('box office', ascending = False).head(4)
+bond.nlargest(n=4,columns='box office')
+bond['box office'].nlargest(4)
+
+.where() similar to
