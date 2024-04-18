@@ -69,4 +69,6 @@ bond.sort_values('box office', ascending = False).head(4)
 bond.nlargest(n=4,columns='box office')
 bond['box office'].nlargest(4)
 
-.where() similar to
+.where()
+.str.split("", expand = True, n = 1(number of split))
+
