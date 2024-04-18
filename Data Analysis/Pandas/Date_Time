@@ -1,0 +1,16 @@
+import datetime as dt
+
+someday = dt.date(2024,12,15)
+someday.year
+someday.month
+someday.day
+dt.datetime(2025,12,15)
+
+timestamp is similar to python's datetime object
+Datetimeindex is an index of Timestamp object
+Timestamp constructor accepts a string, a datetime object or equavalent to the datetime class
+
+pd.Timestamp()
+
+pd.date_range returns a DatetimeIndex holding a sequence of dates, (start, end, period)
+every element within a DatetimeIndex is a Timestamp
