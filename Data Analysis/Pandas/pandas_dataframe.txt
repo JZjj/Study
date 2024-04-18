@@ -50,3 +50,10 @@ isnull and notnull methods
 
 iloc[] requires numeric position for rows and columns
 loc[] requires labels for rows and columns
+
+overwrite multiple values
+dataframe['col name'].replace('original','new')
+loc can also do the same thing
+
+rename
+data.rename(columns = {'original':'new', ...}, index = {})
