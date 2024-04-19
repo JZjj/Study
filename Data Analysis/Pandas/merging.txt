@@ -1,0 +1,5 @@
+pd.concat([])
+pd.concat([], keys= [],axis = 'index'/'columns')
+
+different column names? -> rename them
+.merge(dt, how = 'left', on = 'column name')
