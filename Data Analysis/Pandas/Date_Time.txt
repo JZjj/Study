@@ -14,3 +14,7 @@ pd.Timestamp()
 
 pd.date_range returns a DatetimeIndex holding a sequence of dates, (start, end, period)
 every element within a DatetimeIndex is a Timestamp
+
+timedelta is a pandas represent a duration, subtract two timestamp will yield a timedelta object.
+
+pd.Timestamp("2023-03-31") - pd.Timestamp("2023-03-20")
