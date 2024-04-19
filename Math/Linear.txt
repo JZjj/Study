@@ -1,0 +1,5 @@
+matrices in tensorflow
+x_tf = tf.Variable([[25,2],[5,26],[3,7]])
+x_tf
+tf.shape(x_tf)
+x_tf[1,:]
