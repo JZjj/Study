@@ -1,0 +1,7 @@
+data.set_index(keys = ['',''(column name)])
+pd.read_csv('', parse_date, date_format, index_col)
+data.index.set_names(names = '', level = 0) level is like column index
+data.index.set_names(names = '', level = 1) 第一个index，第二个index
+data.index.set_names(names = ['',''])
+
+.pivot_table(value = '', index = '[]', aggfunc = '')
