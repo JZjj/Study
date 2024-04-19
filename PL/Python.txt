@@ -62,4 +62,3 @@ datetime.datetime.now().year
 import random
 random.sample()
 
-content = [i.st
