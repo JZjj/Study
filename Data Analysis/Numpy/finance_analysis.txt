@@ -1,0 +1,21 @@
+np.arange(0,10) 
+np.zeros(5) -array
+np.zeros((5,5)) -matrix
+np.linspace(0,10,3)
+np.eye(5) identity matrix
+
+np.random.rand() -uniform distribution[0,1)
+np.random.rand(5,2)
+np.random.rand(2)
+
+np.random.randn() -standard normal distribution
+
+np.random.randint(low, high, 5) random integer
+np.random.randint(low, high, (5,5))  high-exclusive discrete uniform
+
+np.random.seed()
+
+.argmax() index location
+
+axis = 0, across row
+axis = 1, across column
