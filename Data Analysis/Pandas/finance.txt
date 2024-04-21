@@ -1,0 +1,16 @@
+pd.Series(data = , index = )
+pd.add(pd2, fill_value = 0)
+
+pwd
+
+df.columns
+df.index
+df.info()
+
+np.round( ,2)
+df.drop('',axis = 1)
+
+options = []
+df[].isin(options)
+
+d
