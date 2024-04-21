@@ -1,0 +1,26 @@
+predict binary output with 2 possible values
+classification accuracy = (TP+TN)/(everything)
+misclassification rate = (FP+FN)/total
+precision = TP/(TP+FP) when TP/total true prediction
+recall = TP/(TP+FN) when the class was actually true, how often did the classifer get it right
+
+click = training_set[training_set['Clicked'] == 1]
+no_click = training_set[training_set['Clicked'] == 0]
+
+sns.scatterplot(training_set[], training_set[], hue = training[])
+
+plt.figure(figsize = (5,5))
+sns.boxplot(x = 'Clicked', y = 'Salary', data = training_set)
+training_set['Salary'].hist(bins = 40)
+
+X = training_set.drop('Clicked', axis = 1).values
+y = training_set['Clicked'].values
+
+from sklearn.preprocesaing import StandardScaler
+sc = StandardScaler
+X = sc.fit_transform(X)
+
+from sklearn.metrics import classification_report, confusion_matrix
+cm = confusion_matrix(y_train, y_predict)
+sns.heatmap(cm, annot = True, fmt = 'd')
+classification_report(y_test, y_predit_test))
