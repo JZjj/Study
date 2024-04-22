@@ -72,3 +72,25 @@ bond['box office'].nlargest(4)
 .where()
 .str.split("", expand = True, n = 1(number of split))
 
+def quality(t1, t2):
+  ... two columns...
+
+df[['total_bill','tip']].apply(lambda df:quality(df['total_bill'], df['tip']))
+axis = 1)
+np.vectorize(quality)(df['total_bill'],df['tip'])
+
+df.sort_values(['tip','size'])
+df.corr()
+df[].value_counts()
+df[].unique()
+df[].nunique()
+df[].replace('','')
+mymap = {}
+df.map(mymap)
+
+pd.DateFrame([1,2,2],['a','b','c'])
+df.drop_duplicate()
+df.between(10,20,inclusive = True) - True, False
+df.nlargest(10,column name)
+df.sample(frac = )
+
