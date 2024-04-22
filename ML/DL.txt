@@ -1,0 +1,29 @@
+ANNs are information processing models inspired by the human brain
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+house_df = pd.read_csv('',encoding = )
+
+Visualization
+sns.scatterplot(x = '', y = '', data = )
+dt.hist(bins, figsize = , color = )
+
+sns.pairplot(df)
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+
+import tensorflow.keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+model = Sequential()
+model.add(Dense(50, input_dim = 7, activation = 'relu'))
+model.add(Dense(50, activation = 'relu'))
+model.add(Dense(1, activation = 'linear'))
+
+model.summary()
