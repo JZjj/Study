@@ -1,0 +1,5 @@
+df.assign() assign new column to a dataframe, return a new objext(a copy)
+            on column
+df.apply() on row
+df.assign(revised_salary = lambda x: df['Salary'] + df['Salary]/10]
+
