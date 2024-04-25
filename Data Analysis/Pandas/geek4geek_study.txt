@@ -1,0 +1,49 @@
+1. create dataframe
+
+import pandas as pd
+df = pd.DataFrame()
+
+create df from (dict/list)
+
+iloc only integer, loc by index
+
+binary operation on series:
+add(), sub(), mul(), div(), sum(), prod(), mean(), pow(), abs(), cov()
+
+pandas series method
+combine_first()
+count() - return number of non-NA observations in the Series
+size() - number of elements in the underlying data
+name() method allows to give a name to a Series
+is_unique()
+idxmax() - extract the index positino of the highest values in a series
+idxmin() - index position of the lowest values in a series
+sort_values()
+sort_index()
+head()
+tail()
+le() less and equal to
+eq()
+ne() not equal
+ge() greater and equal 
+gt()
+lt()
+astype() - change data type 
+tolist() - convert a series to list
+get() - extract values from a series, alternative to the traditional bracket
+unique()
+nunique() 
+value_counts() count the number of times each unique value occurs in a series
+factorize()
+map()
+between()
+apply()
+
+perc = [.2, .4, .6, .8]
+describe(percentile =, include, exclude): percentile to include in the output,
+all should fall between 0 and 1. The default is [.25, .5, .75], which returns the 25th, 50th
+, and 75th percentiles; include: all list-like of dtype or None, optional, 'all' all columns of the input will be included
+in the output
+include = ['object', 'float', 'int']
+
+df = pd.concat([new, df].reset_index(drop = True)), df add below new
