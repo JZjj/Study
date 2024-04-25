@@ -1,0 +1,11 @@
+SELECT column1, column2 FROM table
+multi
+* select everything
+
+SELECT DISTINCT column FROM table
+return only distinct values in a column
+
+SELECT COUNT(name) FROM need paran because count is a function
+
+SELECT FROM WHERE ORDER BY
+LIMIT 5 (show 5 row)
