@@ -7,3 +7,23 @@ Invertible:
 full rank
 n pivot position
 non singular
+
+column space mxn
+rank + nullity = n
+rank A <= min(m,n)
+
+the col space and row space hace same dimension r. The nullspace has dimension n-r. Null Null(A^T) has dimension m-r
+differentiation and integration is linear 
+
+injection: one to one (range could be unmatch)
+surjection: onto (range could match 2 elements in domain)
+bijection: injection + surjection
+
+linear transformation are matrix transformation
+
+Rn -> Rm produces an mxn matrix
+mxn matrix produces a linear transformation
+
+image space = col space
+kernal space = null space, A invertible only iff kernal space {0}
+both subspace
