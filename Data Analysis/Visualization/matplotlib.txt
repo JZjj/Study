@@ -1,0 +1,44 @@
+1. what type of data
+time series, categorical, numeric, hiearchical
+2. what do you want to communicate
+comparison, composition, distribution, relationship
+3. who is the end user
+
+matplotlib, plot many data, sequence, numpy array, pandas series & dataframe
+
+two plotting method:
+1) pyplot api: charts are created with plot() function
+2) OO: charts are created by defining a plot object, and modified using figure & axis methods
+
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax = fig.add_subplot()
+ax.plot()
+
+fig, ax = plt.subplots()
+ax.plot(y)
+fig.suptitle()
+
+plotting dataframe
+
+data = {'Sales':[10,20,30,40],'Profits':[2,44,3,1],'Date':['2022-01-01','2022-02-01',..]}
+df = pd.DataFrame(data.dict, columns = ['Sales','Profits'], index = data.dict['Date'])
+fig,ax = plt.subplots()
+ax.plot(df)
+ax.plot(df.index, df['profit'], ls = '--')
+ax.set_title("Product Sales and Profits')
+
+option
+figure title - fig.suptitle() - plt.suptitle()
+chart title - ax.set_title() - plt.subtitle()
+x label - ax.set_xlabel() - plt.xlabel()
+y label - ax.set_ylabel() - plt.ylabel()
+legend - ax.legend() - plt.legend()
+x-axis limit - ax.set_xlim() - plt.xlim()
+y-axis limit - ax.set_ylim() - plt.ylim()
+x-axis tick - ax.set_xticks() - plt.xticks()
+y-axis tick - ax.set_yticks() - plt.yticks()
+vertical line - ax.axvline() - plt.axvline()
+horizontal line - ax.axhline() - plt.axhline()
+
+fig.suptitle()
