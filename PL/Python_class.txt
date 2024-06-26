@@ -1,0 +1,13 @@
+to make sth private
+class Girl():
+  def __init__(self, name):
+    self.name = name
+    self.__age = 18     (put __)
+the children cannot take private attribute from parents
+
+using method from parents:
+super().method/attribute
+
+class.__mro__
+class.mro()
+method resolution order
