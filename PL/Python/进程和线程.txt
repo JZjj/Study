@@ -1,0 +1,46 @@
+多个任务同时执行可以提高程序执行效率
+1）并发：交替执行多个任务，交替处理，单核CPU是并发执行多任务
+2）并行：真正的同时执行多个任务。多内核
+
+进程是资源分配的最小单元，操作系统进行资源分配和调度运行的基本单位。
+一个正在运行的程序就是一个进程，qq微信都是一个进程
+
+import multiprocessing
+
+object = multiprocessing.Process()
+
+object.start()
+
+PID
+import os
+pid = os.getpid()
+print(pid)
+
+import multiprocessing
+pid = multiprocessing.current_process().pid
+print(pid)
+
+进程之间不共享全局变量
+主进程默认不会等待所有子进程结束再结束。主进程结束后，子进程依然运行。解决方法：守护主进程，销毁子进程。
+
+my_list = []
+
+def write_data():
+  for i in range(3):
+    my_list.append(i)
+    print('add', i)
+  print(my_list)
+
+def read_data():
+  print(my_list)
+
+if __name__ == '__main__':
+  write_process = multiprocessing.Process(target = write_data)
+  read_process = multiprocessing.Process(target = read_data)
+
+CPU密集 多进程 
+
+线程 单核CPU 适合IO密集型应用，并不用于计算，而IO操作，硬件读写。GPU多线程
+进程是分配资源的最小单位。线程是程序执行的最小单位，利用资源执行程序的是线程，进程是线程的容器。一个进程中最少有一个线程负责执行程序，线程自己不拥有系统资源，但可以和同是同一个进程的共享进程所有资源。交替执行
+
+线程之间执行无序 共享全局变量
