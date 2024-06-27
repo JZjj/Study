@@ -74,3 +74,5 @@ network通信过程
 
 端口复用 套接字后面 如果程序执行结束 让其占用的端口可以立即释放
 tcp_server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True), 避免端口运行上次没释放，代码报错
+
+Web服务器 = TCP（七步） + HTTP（请求，响应）
