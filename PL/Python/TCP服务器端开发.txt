@@ -1,0 +1,63 @@
+1.创建TCP服务器套接对象
+import socket
+
+tcp_server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) TCP
+
+2. 绑定IP与端口号
+tcp_server_socket.bind(ip, 端口) 若ip省略，则默认本机
+
+3.设置监听，监听端口传输的数据
+tcp_server_socket.listen(128) 允许最大连接数
+
+4. 等待连接
+while True:
+  new_socket, ip_addr = tcp_server_socket.accept()) 结果是元组，第一个元素为新的套接字对象，第二个元素是客户端信息，客户端与服务器端连接成功后，信息发送与接受要依靠新的套接字对象，因为其
+内部保留客户端与服务器端的相关信息
+
+5.接收客户端data
+recv_data = new_socket.recv(1024)
+recv_data = recv_data.decode('gbk‘）
+print(f'{ip_port'}客户端发送过来的数据: {recv_data}')
+
+6.处理客户端请求并返回数据
+content = 'accepted'.encode('gbk')
+new_socket.send(content)
+
+7.当全部数据处理完毕，关闭套接对象
+new_socket.close()
+tcp_server_socket.close()
+
+
+multiple connect
+4.
+while True:
+  new_socket, ip_port = tcp_server_socket.accept()
+  recv_data= new_socket.recv(1024)
+  recv_data = recv_data.decode('gbk')
+  print()
+
+
+class WebServer(object):
+  def __init__(self):
+
+  def __str__(self):
+
+  def __del__():
+
+HTTP:
+浏览器访问web服务器的通信过程：
+1）DNS解析域名为IP地址，获取IP
+2）发送http请求教程
+3）建立连接
+4）返回http响应数据、
+5）根据请求获取权限
+6）返回资源给web
+
+URL：uniform resource locator 统一资源定位符，定位网络资源地址、协议，域名，资源路径，查询参数。网络资源地址，简称网址。
+http：主流 80
+https 基础上增加安全机制
+ftp：上传下载
+
+查看HTTP协议通信过程
+alt+command+i 开发者工具
+network通信过程
