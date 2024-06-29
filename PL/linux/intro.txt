@@ -1,0 +1,87 @@
+个人计算机 企业计算机
+为什么要使用远程连接工具
+
+我们需要远程连接虚拟机，如果使用随机IP我们再重启或更改网络环境后，IP随之变化，需要频繁修改网络连接配置。选择NAT模式，修改子网IP，
+ip a 显示所有网卡ip信息
+ens33 为真实ip
+
+/bin 二进制命令所在目录
+/boot 相当于window C盘
+/dev 磁盘 光驱
+/etc 系统配置
+/home 普通用户的家 目录默认数据存放目录
+/lib 共享库文件和内核模块存放
+/sbin 和管理系统相关名录，超级管理员使用
+/mnt 临时挂载村设备 u盘-挂载-mnt中访问
+/opt 额外应用软件包 qq，游戏，wps办公软件
+/proc 操作系统运行时，进程和内核信息存放在这里
+/root linux超级权限用户root家目录
+/tmp 临时文件目录 被当作回收站使用
+/usr 用户或系统软件应用程序目录，类似program file
+
+用户家目录
+普通用户：itcast
+超级管理员：root
+
+linux常用命令
+ls 列出目录内容
+ls -a 查看当前目录内容 包括隐藏文件 点开头的是隐藏文件
+ls -l详细信息 何时打开
+ls -al详细信息 权限大小
+ls /root 查看root下面所有文件
+ls -h人性化方法展示信息
+
+cd test 当前目录下test 相对路径
+cd /root/test切换到指定目录 绝对路径
+cd .. 上一级
+pwd 得到绝对路径名称
+
+mkdir 创建目录
+mkdir -p 一次创建多级
+
+touch创建文件
+
+rm删除
+rm -f 强制删除，忽略不存在的文件或目录，不需提示
+rm -r recursive递归地删除目录下的内容，删除目录必须添加此参数
+
+cp copy cp -r if folder
+mv move cut rename
+mv main.py ai.py
+
+cat show content of file
+
+ps show任务管理器
+ps -ef shouw进程
+kill 杀死进程
+kill -9 uid 强制杀掉某进程
+ifconfig 获取ip地址
+ctrl + l 页面清零
+clear 清屏
+
+shutdown -h now立刻关机 超级管理员
+halt
+
+which pwd show位置
+hostname 主机名称
+
+grep lang anaconda.cfg 在文件中查找lang关键字
+grep -n lang 显示行号
+
+
+ps -ef | grep mysql 在所有进程中快速找包含mysql的进程
+
+useradd
+passwd 
+userdel 
+userdel -r 删除家目录
+tar 压缩 解压缩
+tar -zcvf 压缩
+tar -zxvf 解压
+tar -z调用gzip解压缩 x 解包 v解释运行过程信息 f 到指定文件名
+|管道 左边命令结果参为参数给右边命令
+halt 立刻关机
+
+linux 多用户多任务
+su 切换用户
+su - also换到该用户家目录
