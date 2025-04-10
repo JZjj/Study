@@ -1,2 +1,0 @@
-survival analysis - absolute must for subscription based type services
-prepare dataset, perform survival curve, visualize interpret result
