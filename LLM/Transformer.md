@@ -213,6 +213,103 @@ information inside attention.
 
 ## Attention
 
+### 主流 Attention 方法
+
+#### Scaled Dot-Product Attention
+
+Scaled dot-product attention 是 Transformer 里最基础的 attention 计算方式。
+
+```text
+Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V
+```
+
+其中：
+
+```text
+QK^T = query 和 key 的相似度分数
+sqrt(d_k) = 缩放项，防止分数过大
+softmax = 把分数变成权重
+V = 被加权读取的信息
+```
+
+#### Multi-Head Attention
+
+Multi-head attention 会把 hidden vector 分成多个 head。每个 head 独立做
+attention，然后再把结果拼接起来。
+
+```text
+head_1, head_2, ..., head_n -> concat -> output projection
+```
+
+这样不同 head 可以学习不同关系。
+
+#### Relative Position Encoding
+
+Relative position encoding 不只看 token 的绝对位置，而是看 token 之间的相对
+距离。
+
+```text
+当前位置 i 和目标位置 j 的距离 = i - j
+```
+
+这让模型更容易学习“附近 token 更重要”或“前后距离模式”。
+
+#### Transformer-XL
+
+Transformer-XL 主要解决长文本建模问题。它把上一段文本的 hidden states 缓存
+下来，作为下一段文本的 memory。
+
+```text
+previous segment memory + current segment -> longer context
+```
+
+这样模型可以跨 segment 看到更长的上下文。
+
+#### Code Example
+
+```python
+import math
+import torch
+import torch.nn as nn
+
+
+def scaled_dot_product_attention(Q, K, V):
+    d_k = Q.size(-1)
+    scores = Q @ K.transpose(-2, -1) / math.sqrt(d_k)
+    weights = torch.softmax(scores, dim=-1)
+    output = weights @ V
+    return output, weights
+
+
+batch_size = 2
+num_heads = 4
+seq_len = 5
+head_dim = 8
+
+Q = torch.randn(batch_size, num_heads, seq_len, head_dim)
+K = torch.randn(batch_size, num_heads, seq_len, head_dim)
+V = torch.randn(batch_size, num_heads, seq_len, head_dim)
+
+output, weights = scaled_dot_product_attention(Q, K, V)
+
+print(output.shape)   # torch.Size([2, 4, 5, 8])
+print(weights.shape)  # torch.Size([2, 4, 5, 5])
+
+
+# PyTorch built-in multi-head attention.
+hidden_size = 32
+attention = nn.MultiheadAttention(
+    embed_dim=hidden_size,
+    num_heads=4,
+    batch_first=True,
+)
+
+x = torch.randn(batch_size, seq_len, hidden_size)
+multi_head_output, attention_weights = attention(x, x, x)
+
+print(multi_head_output.shape)  # torch.Size([2, 5, 32])
+```
+
 ### Attention 与传统 Seq2Seq 的区别
 
 传统 Seq2Seq 通常是 encoder-decoder 结构。Encoder 先把输入序列压缩成
@@ -242,31 +339,15 @@ V = encoder_hidden Wv
 This is common in encoder-decoder models, where the decoder attends to the
 encoder output.
 
-### Code Example
+### Transformer 的权重共享
 
-```python
-import torch
-import torch.nn as nn
+在一些 Transformer 变体或特定实现中，会使用权重共享来减少参数量。
 
-hidden_size = 16
-num_heads = 4
+常见做法包括：
 
-attention = nn.MultiheadAttention(
-    embed_dim=hidden_size,
-    num_heads=num_heads,
-    batch_first=True,
-)
-
-# Self-attention: Q, K, V come from the same sequence.
-x = torch.randn(2, 5, hidden_size)
-self_out, _ = attention(x, x, x)
-
-# Cross-attention: Q comes from decoder states;
-# K and V come from encoder states.
-decoder_hidden = torch.randn(2, 3, hidden_size)
-encoder_hidden = torch.randn(2, 5, hidden_size)
-cross_out, _ = attention(decoder_hidden, encoder_hidden, encoder_hidden)
-
-print(self_out.shape)   # torch.Size([2, 5, 16])
-print(cross_out.shape)  # torch.Size([2, 3, 16])
+```text
+不同层共享同一组参数
+input embedding 和 output projection 共享权重
 ```
+
+这样可以让模型更小，但也可能降低每一层学习不同表示的灵活性。
