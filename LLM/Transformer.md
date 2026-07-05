@@ -351,3 +351,87 @@ input embedding 和 output projection 共享权重
 ```
 
 这样可以让模型更小，但也可能降低每一层学习不同表示的灵活性。
+
+Code example:
+
+```python
+import torch
+import torch.nn as nn
+
+vocab_size = 50000
+hidden_size = 768
+
+token_embedding = nn.Embedding(vocab_size, hidden_size)
+lm_head = nn.Linear(hidden_size, vocab_size, bias=False)
+
+# Weight sharing / tied embedding:
+# input embedding 和 output projection 使用同一组权重。
+lm_head.weight = token_embedding.weight
+
+token_ids = torch.tensor([[1, 25, 300, 1024]])
+hidden = token_embedding(token_ids)
+logits = lm_head(hidden)
+
+print(hidden.shape)  # torch.Size([1, 4, 768])
+print(logits.shape)  # torch.Size([1, 4, 50000])
+```
+
+#### GQA: Grouped-Query Attention
+
+GQA 是 Grouped-Query Attention。它让多组 query heads 共享较少数量的
+key/value heads。
+
+```text
+Multi-Head Attention:
+many Q heads, many K heads, many V heads
+
+Grouped-Query Attention:
+many Q heads, fewer shared K/V heads
+```
+
+Example:
+
+```text
+8 query heads
+2 key/value heads
+
+Q heads 1-4 share K/V head 1
+Q heads 5-8 share K/V head 2
+```
+
+这样可以减少 KV cache 内存，提高推理速度，同时通常比只用一个共享 K/V head
+的 MQA 保留更好的效果。
+
+Summary:
+
+```text
+MHA = Multi-Head Attention
+many Q heads, many K heads, many V heads
+
+MQA = Multi-Query Attention
+many Q heads, one shared K head, one shared V head
+
+GQA = Grouped-Query Attention
+many Q heads, fewer shared K/V heads
+```
+
+With 8 query heads:
+
+```text
+MHA:
+8 Q heads, 8 K heads, 8 V heads
+
+MQA:
+8 Q heads, 1 K head, 1 V head
+
+GQA:
+8 Q heads, 2 K heads, 2 V heads
+```
+
+In short:
+
+```text
+MHA = best flexibility, largest KV cache
+MQA = smallest KV cache, most sharing
+GQA = compromise between MHA and MQA
+```
