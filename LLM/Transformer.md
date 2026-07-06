@@ -7,6 +7,10 @@
 - [Tokenization & Word Embedding](#tokenization--word-embedding)
 - [Positional Encoding](#positional-encoding)
 - [Attention](#attention)
+- [FFN](#ffn)
+- [Normalization](#normalization)
+- [Encoder & Decoder](#encoder--decoder)
+- [Decoding](#decoding)
 
 ## Overview
 
@@ -104,6 +108,201 @@ y = block(x)
 
 print(y.shape)  # torch.Size([2, 5, 16])
 ```
+
+## Normalization
+
+在 Transformer 中，normalization 的作用是通过标准化隐藏层的输出稳定训练过程，
+缓解梯度消失或梯度爆炸问题。
+
+常见 normalization 方法包括：
+
+### Batch Normalization
+
+Batch normalization 在 batch 维度上统计均值和方差。因为每个 batch 的数据分布
+可能不一样，normalization 可以防止输入分布不断漂移。
+
+```text
+normalize over batch
+```
+
+如果每层看到的输入分布一直变化，模型训练会变难，收敛速度会变慢，也更容易
+出现梯度消失或梯度爆炸问题。
+
+### Layer Normalization
+
+Layer normalization 对每个 token 的 hidden dimension 做标准化。
+
+```text
+normalize over hidden dimension
+```
+
+Transformer 中最常用的是 LayerNorm，因为它不依赖 batch 统计，更适合变长
+序列和自回归模型。
+
+特点：
+
+```text
+不依赖 batch
+不依赖 batch size
+不依赖时间序列长度
+对序列模型效果明显
+```
+
+由于 LayerNorm 不依赖 batch 大小和时间序列长度，它在循环网络和序列模型中能
+稳定激活分布，加快收敛。
+
+如果用在 CNN 上，LayerNorm 可能会损失某些图像的局部特征，因为它会在更大的
+特征维度范围内做标准化。
+
+### Instance Normalization
+
+Instance normalization 通常对每个样本、每个通道单独标准化。
+
+```text
+normalize each instance independently
+```
+
+它更多用于图像风格迁移等视觉任务，在 LLM 中不常用。
+
+### Group Normalization
+
+Group normalization 把 channels 分成若干组，在每组内部做标准化。
+
+```text
+normalize within channel groups
+```
+
+它不依赖 batch size，常用于视觉模型；在标准 Transformer LLM 中不如
+LayerNorm / RMSNorm 常见。
+
+### RMSNorm
+
+RMSNorm 是 Root Mean Square Layer Normalization。它只用均方根缩放，不减去
+均值。
+
+```text
+RMSNorm: scale by root mean square
+LayerNorm: subtract mean and divide by standard deviation
+```
+
+RMSNorm 计算更简单，在很多现代 LLM 中很常见。
+
+## Encoder & Decoder
+
+Encoder 用来做表征提取。它把输入序列转换成一组 hidden states，作为输入内容的
+表示。
+
+```text
+input sequence -> encoder -> encoder hidden states
+```
+
+Decoder 用来解码，并逐步生成目标序列。
+
+```text
+previous target tokens -> decoder -> next token
+```
+
+在 encoder-decoder Transformer 中，decoder 可以访问 encoder 的输出。生成每个
+token 时，decoder 会通过 cross-attention 关注输入序列中最相关的部分。
+
+## Decoding
+
+### Temperature Sampling
+
+Temperature sampling controls how random or conservative the next-token
+sampling is.
+
+The model first produces logits, then temperature rescales those logits before
+softmax.
+
+```text
+probabilities = softmax(logits / temperature)
+```
+
+When temperature is low, the largest logit becomes more dominant, so the output
+is more deterministic.
+
+```text
+temperature < 1 -> sharper distribution -> safer / more conservative
+```
+
+When temperature is high, the probability distribution becomes flatter, so the
+model samples more diverse tokens.
+
+```text
+temperature > 1 -> flatter distribution -> more random / creative
+```
+
+Code example:
+
+```python
+import torch
+
+logits = torch.tensor([2.0, 1.0, 0.1])
+
+def sample_with_temperature(logits, temperature):
+    scaled_logits = logits / temperature
+    probs = torch.softmax(scaled_logits, dim=-1)
+    token_id = torch.multinomial(probs, num_samples=1)
+    return token_id, probs
+
+
+for temperature in [0.5, 1.0, 2.0]:
+    token_id, probs = sample_with_temperature(logits, temperature)
+    print("temperature:", temperature)
+    print("probabilities:", probs)
+    print("sampled token:", token_id.item())
+```
+
+In simple terms:
+
+```text
+low temperature = more confident, less random
+high temperature = more diverse, more random
+```
+
+Why this happens:
+
+```text
+probabilities = softmax(logits / temperature)
+```
+
+If temperature is smaller than 1, dividing by temperature makes the logits
+larger.
+
+```text
+logits = [2.0, 1.0, 0.1]
+temperature = 0.5
+
+logits / temperature = [4.0, 2.0, 0.2]
+```
+
+The biggest number becomes much bigger than the others, so softmax gives it
+more probability. The distribution becomes sharper.
+
+If temperature is larger than 1, dividing by temperature makes the logits
+closer together.
+
+```text
+logits = [2.0, 1.0, 0.1]
+temperature = 2.0
+
+logits / temperature = [1.0, 0.5, 0.05]
+```
+
+The numbers become closer, so softmax gives other tokens more chance. The
+distribution becomes flatter.
+
+Example probabilities:
+
+```text
+temperature = 0.5 -> [0.86, 0.12, 0.02]
+temperature = 1.0 -> [0.66, 0.24, 0.10]
+temperature = 2.0 -> [0.50, 0.30, 0.20]
+```
+
+
+
 
 ## Tokenization & Word Embedding
 
@@ -434,4 +633,94 @@ In short:
 MHA = best flexibility, largest KV cache
 MQA = smallest KV cache, most sharing
 GQA = compromise between MHA and MQA
+```
+
+## FFN
+
+### Gated Linear Unit
+
+Gated Linear Unit, or GLU, adds a gate to the feedforward network. One branch
+creates candidate features, and another branch decides how much of those
+features should pass through.
+
+```text
+output = candidate_features * gate
+```
+
+In Transformer FFN variants, gated FFNs often replace the standard two-layer
+MLP because the gate gives the model more control over which features to keep.
+
+Code example:
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class GLUFFN(nn.Module):
+    def __init__(self, hidden_size, ff_size):
+        super().__init__()
+        self.up = nn.Linear(hidden_size, ff_size)
+        self.gate = nn.Linear(hidden_size, ff_size)
+        self.down = nn.Linear(ff_size, hidden_size)
+
+    def forward(self, x):
+        candidate_features = self.up(x)
+        gate_values = torch.sigmoid(self.gate(x))
+        gated_features = candidate_features * gate_values
+        return self.down(gated_features)
+
+
+x = torch.randn(2, 5, 16)
+ffn = GLUFFN(hidden_size=16, ff_size=64)
+y = ffn(x)
+
+print(y.shape)  # torch.Size([2, 5, 16])
+```
+
+### 实际应用
+
+#### ReLU vs GeLU vs Swish
+
+不同激活函数在速度和效果上有取舍。
+
+```text
+ReLU: 速度最快，但有神经元死亡问题
+Swish: 速度次之，表达更平滑
+GeLU: 相对较慢，但在 Transformer / LLM 中很常见
+```
+
+ReLU 的神经元死亡问题指的是：如果某些神经元长期输出 0，它们可能很难再被
+更新回来。
+
+```text
+ReLU(x) = max(0, x)
+```
+
+当输入长期小于 0 时，输出一直是 0，梯度也可能变得很弱。
+
+#### GLU 或 激活 + GLU
+
+GLU 或激活函数加 GLU 的 FFN，可以增强表示能力，让模型对信息进行更精细的
+选择。
+
+```text
+普通 FFN: 变换信息
+GLU FFN: 变换信息 + 选择哪些信息通过
+```
+
+优点：
+
+```text
+表示能力更强
+信息选择更精细
+```
+
+代价：
+
+```text
+计算量更大
+参数量可能更多
+数据规模不大时，可能更容易过拟合
 ```
